@@ -4,6 +4,7 @@
   "description": "Starter project for CSE 340",
   "main": "server.js",
   "scripts": {
+    "preinstall": "corepack enable && corepack prepare pnpm@9.1.4 --activate",
     "start": "node server.js",
     "dev": "nodemon server.js"
   },
