@@ -77,6 +77,10 @@ nav ul,
   right: 0;
 }
 
+#tools a:hover {
+  text-decoration: underline;
+}
+
 /*** Navigation ***/
 nav ul {
   display: flex;
@@ -163,7 +167,7 @@ nav li:hover {
 /*** Home Upgrades Section ***/
 .delorean-upgrades-container {
   display: flex;
-  gap: .5em;
+  gap: 0.5em;
   flex-wrap: wrap;
   justify-content: space-between;
 }
@@ -190,5 +194,104 @@ nav li:hover {
 
 /*** Footer ***/
 .copyright {
-  font-size: .95em;
+  font-size: 0.95em;
+}
+
+/***** Media Queries *****/
+@media screen and (min-width: 768px) {
+  /*** Background setup ***/
+  body {
+    background-image: url("/images/site/checkerboard.jpg");
+    background-position: center;
+  }
+
+  .container {
+    max-width: 75%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 7px solid var(--secondary-color);
+  }
+
+  .siteName a {
+    font-size: 3em;
+  }
+
+  #tools {
+    font-size: 1.5em;
+  }
+
+  /*** Navigation ***/
+  nav li {
+    font-size: 1.5em;
+  }
+
+  /*** Home Hero Section ***/
+  .title {
+    font-size: 2.5em;
+  }
+
+  #hero-box h2 {
+    font-size: 2.2em;
+  }
+
+  #hero-box p,
+  #hero-box button {
+    font-size: 2em;
+  }
+
+  #hero-box button {
+    margin-top: 0.75em;
+    padding: 10px;
+  }
+
+  #hero-img {
+    max-width: 100%;
+  }
+
+  /*** Home Content Setup ***/
+  .home-content-container {
+    display: flex;
+    justify-content: space-evenly;
+    padding-top: 2.5em;
+  }
+
+  .delorean-info {
+    order: 1;
+  }
+
+  .delorean-reviews {
+    order: 2;
+  }
+
+  .delorean-info h2,
+  .delorean-reviews h2 {
+    font-size: 2em;
+  }
+
+  /*** Home Upgrades Section ***/
+  .delorean-upgrades-container {
+    justify-content: space-evenly;
+  }
+
+  .upgrade-icon-container {
+    max-width: 90%;
+  }
+
+  .upgrade-link {
+    font-size: 1.15em;
+  }
+
+  /*** Home Reviews Section ***/
+  .delorean-reviews li {
+    font-size: 1.25em;
+    padding-left: 1.5em;
+    text-indent: -1.5em;
+    padding-bottom: 1.25em;
+  }
+
+  /*** Footer ***/
+  .copyright {
+    font-size: 1.1em;
+  }
 }
