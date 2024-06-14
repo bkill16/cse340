@@ -1,54 +1,49 @@
-/******* Change Box Model ***************/
 *,
 *:before,
 *:after {
   box-sizing: border-box;
 }
 
-/******* Variables ***************/
 :root {
-
-  /* Colors */
   --primary-color: #102542;
-  --secondary-color: #1E96FC;
-  --accent-color-one: #C44536;
-  --accent-color-two: #36C4B7;
+  --secondary-color: #1e96fc;
+  --accent-color-one: #c44536;
+  --accent-color-two: #36c4b7;
   --text-on-light: #333333;
-  --text-on-dark: #F5FBEF;
-
-  /* Fonts */
-  --primary-font: 'Roboto', sans-serif;
-  --heading-font: 'Roboto Slab', serif;
+  --text-on-dark: #f5fbef;
+  --primary-font: "Roboto", sans-serif;
+  --heading-font: "Roboto Slab", serif;
 }
 
-/******* Header ***************/
 #top-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 5px;
-  padding-bottom: 25px;
+  padding: 5px 0 25px;
+}
+
+.siteName a,
+#tools a {
+  font-family: var(--primary-font);
+  color: var(--primary-color);
+  text-decoration: none;
 }
 
 .siteName a {
-  font-family: var(--primary-font);
   font-weight: 700;
   font-size: 2rem;
-  color: var(--primary-color);
-  text-decoration: none;
 }
 
 #tools a {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  font-family: var(--primary-font);
-  font-size: 1rem;
-  color: var(--primary-color);
-  text-decoration: none;
+  position: relative;
+  font-size: 1.1rem;
+  margin-left: 10px;
 }
 
-/******* Navigation ***************/
+#tools a:hover {
+  text-decoration: underline;
+}
+
 nav {
   background-color: var(--primary-color);
   width: 100%;
@@ -75,15 +70,15 @@ nav li:hover {
   text-decoration: underline;
 }
 
-/******* Home Page ***************/
-.title {
+.title,
+.delorean-reviews h2,
+.delorean-info h2 {
   font-family: var(--heading-font);
   font-size: 1.5rem;
   color: var(--text-on-light);
   text-align: left;
 }
 
-/*** Hero Section ***/
 .hero {
   position: relative;
   display: flex;
@@ -101,21 +96,21 @@ nav li:hover {
 }
 
 #hero-box h3 {
-  margin: 0;
+  margin: 0 0 10px;
   padding: 0;
   font-family: var(--heading-font);
   font-size: 1.4rem;
-  margin-bottom: 0;
+}
+
+#hero-box p,
+#hero-box button {
+  font-family: var(--primary-font);
+  font-size: 1.2rem;
 }
 
 #hero-box p {
   margin-top: 10px;
-  line-height: .25;
-}
-
-#hero-box p, #hero-box button {
-  font-family: var(--primary-font);
-  font-size: 1.2rem;
+  line-height: 0.25;
 }
 
 #hero-box button {
@@ -138,13 +133,8 @@ nav li:hover {
   z-index: 1;
 }
 
-/*** Reviews Section ***/
-.delorean-reviews h2 {
-  font-family: var(--heading-font);
-  font-size: 1.5rem;
-  color: var(--text-on-light);
-  text-align: left;
-  margin-bottom: 10px;
+.home-content-container {
+  padding-top: 30px;
 }
 
 .delorean-reviews ul {
@@ -153,20 +143,15 @@ nav li:hover {
   list-style-position: inside;
 }
 
-.delorean-reviews li {
+.delorean-reviews li,
+footer {
   font-family: var(--primary-font);
   font-size: 1rem;
   color: var(--text-on-light);
-  padding: 4px;
 }
 
-/*** Upgrades Section ***/
-.delorean-info h2 {
-  font-family: var(--heading-font);
-  font-size: 1.5rem;
-  color: var(--text-on-light);
-  text-align: left;
-  margin-bottom: 10px;
+.delorean-reviews li {
+  padding: 10px;
 }
 
 .delorean-upgrades-container {
@@ -187,7 +172,6 @@ nav li:hover {
   align-items: center;
   background-color: var(--secondary-color);
   border: 1px solid var(--text-on-light);
-  box-sizing: border-box;
   height: 100px;
   width: 100%;
   padding: 10px;
@@ -205,10 +189,88 @@ nav li:hover {
   margin-top: 5px;
 }
 
-/******* Footer ***************/
 footer {
-  color: var(--text-on-light);
-  font: var(--primary-font);
-  font-size: 1rem;
   text-align: left;
 }
+
+
+@media screen and (min-width: 768px) {
+  body {
+    background-image: url("/images/site/checkerboard.jpg");
+    background-size: cover;
+    background-position: center;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 7px solid var(--secondary-color);
+  }
+
+  .siteName a,
+  #tools a,
+  nav li {
+    font-size: 1.3rem;
+  }
+
+  .siteName a {
+    font-size: 2.5rem;
+  }
+
+  .title,
+  #hero-box h3,
+  .delorean-reviews h2,
+  .delorean-info h2 {
+    font-size: 2rem;
+  }
+
+  .title {
+    font-size: 2.5rem;
+  }
+
+  #hero-box {
+    padding: 20px;
+    margin-left: 75px;
+  }
+
+  #hero-box p,
+  #hero-box button {
+    font-size: 1.8rem;
+  }
+
+  #hero-img {
+    width: 65%;
+    height: auto;
+    position: absolute;
+    top: 0;
+    right: 140px;
+    z-index: 1;
+  }
+
+  .home-content-container {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 150px;
+  }
+
+  .delorean-info {
+    order: 1;
+  }
+
+  .delorean-reviews {
+    order: 2;
+  }
+
+  .delorean-reviews li {
+    font-size: 1.4rem;
+    padding: 15px;
+  }
+
+  .upgrade-link,
+  footer {
+    font-size: 1.15rem;
+  }
+}
+
