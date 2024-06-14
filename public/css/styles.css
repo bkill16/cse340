@@ -4,6 +4,9 @@
   box-sizing: border-box;
 }
 
+/******* Global Styles *********/
+
+/***** Variables *****/
 :root {
   --primary-color: #102542;
   --secondary-color: #1e96fc;
@@ -15,155 +18,160 @@
   --heading-font: "Roboto Slab", serif;
 }
 
+/***** Typography *****/
+.title,
+#hero-box h2,
+.delorean-reviews h2,
+.delorean-info h2 {
+  font-family: var(--heading-font);
+  font-weight: 700;
+}
+
+.siteName a,
+#tools a,
+nav ul,
+#hero-box p,
+#hero-box button,
+.delorean-reviews ul,
+.upgrade-link,
+.copyright {
+  font-family: var(--primary-font);
+}
+
+.title,
+.delorean-reviews h2,
+.delorean-info,
+.delorean-reviews ul,
+.copyright {
+  color: var(--text-on-light);
+}
+
+#hero-box h2,
+#hero-box p {
+  color: var(--secondary-color);
+}
+
+.siteName a,
+#tools a,
+#hero-box button {
+  color: var(--primary-color);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+/*** Header ***/
 #top-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 5px 0 25px;
-}
-
-.siteName a,
-#tools a {
-  font-family: var(--primary-font);
-  color: var(--primary-color);
-  text-decoration: none;
+  max-width: 100%;
 }
 
 .siteName a {
-  font-weight: 700;
-  font-size: 2rem;
+  font-size: 2em;
 }
 
-#tools a {
+#tools {
   position: relative;
-  font-size: 1.1rem;
-  margin-left: 10px;
+  font-size: 1.1em;
+  right: 0;
 }
 
-#tools a:hover {
-  text-decoration: underline;
-}
-
-nav {
-  background-color: var(--primary-color);
-  width: 100%;
-  padding: 15px;
-}
-
+/*** Navigation ***/
 nav ul {
   display: flex;
-  list-style: none;
-  justify-content: center;
-  padding: 0;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 1em;
   margin: 0;
-}
-
-nav li {
-  margin: auto;
-  font-family: var(--primary-font);
-  font-size: 1.1rem;
+  padding: 0;
+  list-style: none;
+  background-color: var(--primary-color);
   color: var(--text-on-dark);
-  cursor: pointer;
+  min-height: 3.5em;
+  margin-top: 1em;
 }
 
 nav li:hover {
   text-decoration: underline;
 }
 
-.title,
-.delorean-reviews h2,
-.delorean-info h2 {
-  font-family: var(--heading-font);
-  font-size: 1.5rem;
-  color: var(--text-on-light);
-  text-align: left;
+/*** Home Hero Section ***/
+.title {
+  font-size: 1.5em;
 }
 
-.hero {
-  position: relative;
+.hero-container {
   display: flex;
+  justify-content: center;
   align-items: center;
-  justify-content: space-between;
+  position: relative;
 }
 
 #hero-box {
-  position: relative;
-  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 20%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(244, 246, 247, 0.8);
   z-index: 2;
-  color: var(--secondary-color);
-  background-color: rgba(230, 234, 237, 0.8);
-  padding: 3px;
+  text-align: left;
+  margin: 0;
+  padding: 0;
+  font-weight: 700;
 }
 
 #hero-box h2 {
-  margin: 0 0 10px;
-  padding: 0;
-  font-family: var(--heading-font);
-  font-size: 1.4rem;
+  font-size: 1.2em;
+  margin: 0;
+  padding: 3px;
 }
 
 #hero-box p,
 #hero-box button {
-  font-family: var(--primary-font);
-  font-size: 1.2rem;
-}
-
-#hero-box p {
-  margin-top: 10px;
-  line-height: 0.25;
+  font-size: 1.1em;
+  margin: 0;
+  padding: 3px;
 }
 
 #hero-box button {
   background-color: var(--secondary-color);
   color: var(--primary-color);
-  font-weight: 700;
-  padding: 7px;
+  border-color: var(--primary-color);
   border-radius: 5px;
-  border-color: var(--text-on-light);
+  padding: 5px 10px;
   cursor: pointer;
-  margin-top: -5px;
 }
 
 #hero-img {
-  width: 75%;
-  height: auto;
-  position: absolute;
-  top: 0;
-  right: 0;
+  max-width: 75%;
   z-index: 1;
 }
 
-.home-content-container {
-  padding-top: 30px;
-}
-
+/*** Home Reviews Section ***/
 .delorean-reviews ul {
   padding-left: 0;
-  margin-left: 0;
+  margin: 0;
   list-style-position: inside;
 }
 
-.delorean-reviews li,
-footer {
-  font-family: var(--primary-font);
-  font-size: 1rem;
-  color: var(--text-on-light);
-}
-
 .delorean-reviews li {
-  padding: 10px;
+  padding-bottom: 1em;
 }
 
+/*** Home Upgrades Section ***/
 .delorean-upgrades-container {
   display: flex;
+  gap: .5em;
   flex-wrap: wrap;
   justify-content: space-between;
 }
 
 .delorean-card {
-  width: 48%;
-  margin-bottom: 10px;
-  padding: 10px;
+  min-width: 48%;
+  text-align: center;
+  margin-bottom: 1em;
 }
 
 .upgrade-icon-container {
@@ -171,106 +179,16 @@ footer {
   justify-content: center;
   align-items: center;
   background-color: var(--secondary-color);
-  border: 1px solid var(--text-on-light);
-  height: 100px;
+  border: 1px solid var(--primary-color);
   width: 100%;
-  padding: 10px;
-}
-
-.upgrade-img {
-  max-width: 100%;
+  min-height: 100px;
 }
 
 .upgrade-link {
-  display: block;
-  text-align: center;
-  font-family: var(--primary-font);
-  font-size: 1rem;
-  margin-top: 5px;
+  font-size: 1.1em;
 }
 
-footer {
-  text-align: left;
+/*** Footer ***/
+.copyright {
+  font-size: .95em;
 }
-
-
-@media screen and (min-width: 768px) {
-  body {
-    background-image: url("/images/site/checkerboard.jpg");
-    background-size: cover;
-    background-position: center;
-  }
-
-  .container {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #fff;
-    border: 7px solid var(--secondary-color);
-  }
-
-  .siteName a,
-  #tools a,
-  nav li {
-    font-size: 1.3rem;
-  }
-
-  .siteName a {
-    font-size: 2.5rem;
-  }
-
-  .title,
-  #hero-box h2,
-  .delorean-reviews h2,
-  .delorean-info h2 {
-    font-size: 2rem;
-  }
-
-  .title {
-    font-size: 2.5rem;
-  }
-
-  #hero-box {
-    padding: 20px;
-    margin-left: 75px;
-  }
-
-  #hero-box p,
-  #hero-box button {
-    font-size: 1.8rem;
-  }
-
-  #hero-img {
-    width: 65%;
-    height: auto;
-    position: absolute;
-    top: 0;
-    right: 140px;
-    z-index: 1;
-  }
-
-  .home-content-container {
-    display: flex;
-    justify-content: space-between;
-    padding-top: 150px;
-  }
-
-  .delorean-info {
-    order: 1;
-  }
-
-  .delorean-reviews {
-    order: 2;
-  }
-
-  .delorean-reviews li {
-    font-size: 1.4rem;
-    padding: 15px;
-  }
-
-  .upgrade-link,
-  footer {
-    font-size: 1.15rem;
-  }
-}
-
