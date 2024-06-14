@@ -95,7 +95,7 @@ nav li:hover {
   padding: 3px;
 }
 
-#hero-box h3 {
+#hero-box h2 {
   margin: 0 0 10px;
   padding: 0;
   font-family: var(--heading-font);
@@ -115,7 +115,7 @@ nav li:hover {
 
 #hero-box button {
   background-color: var(--secondary-color);
-  color: var(--text-on-dark);
+  color: var(--primary-color);
   font-weight: 700;
   padding: 7px;
   border-radius: 5px;
@@ -220,7 +220,7 @@ footer {
   }
 
   .title,
-  #hero-box h3,
+  #hero-box h2,
   .delorean-reviews h2,
   .delorean-info h2 {
     font-size: 2rem;
