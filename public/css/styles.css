@@ -92,12 +92,16 @@ nav ul {
   padding: 0;
   list-style: none;
   background-color: var(--primary-color);
-  color: var(--text-on-dark);
   min-height: 3.5em;
   margin-top: 1em;
 }
 
-nav li:hover {
+nav li a {
+  text-decoration: none;
+  color: var(--text-on-dark);
+}
+
+nav li a:hover {
   text-decoration: underline;
 }
 
@@ -192,6 +196,49 @@ nav li:hover {
   font-size: 1.1em;
 }
 
+/*** Inventory Section ***/
+#inv-title {
+  text-align: center;
+  font-family: var(--heading-font);
+  color: var(--text-on-light);
+}
+
+#inv-display {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#inv-display li {
+  text-align: center;
+  margin-bottom: 1.5em;
+  border: 3px solid var(--primary-color);
+  width: 100%;
+}
+
+#inv-display li img {
+  max-width: 100%;
+  padding-top: .85em;
+}
+
+#inv-display li h2 a {
+  text-decoration: none;
+  font-family: var(--heading-font);
+  color: var(--text-on-light);
+}
+
+#inv-display li h2 a:hover {
+  text-decoration: underline;
+}
+
+#inv-display .namePrice {
+  font-family: var(--primary-font);
+  color: var(--text-on-light);
+  font-weight: 700;
+  font-size: 1.25em;
+  padding-bottom: .85em;
+}
+
 /*** Footer ***/
 .copyright {
   font-size: 0.95em;
@@ -222,7 +269,7 @@ nav li:hover {
   }
 
   /*** Navigation ***/
-  nav li {
+  nav li a {
     font-size: 1.5em;
   }
 
@@ -288,6 +335,23 @@ nav li:hover {
     padding-left: 1.5em;
     text-indent: -1.5em;
     padding-bottom: 1.25em;
+  }
+
+  /*** Inventory Section ***/
+  #inv-title {
+    font-size: 2.5em;
+    text-align: left;
+  }
+
+  #inv-display {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5em;
+  }
+
+  #inv-display li {
+    width: auto;
+    margin: 0;
   }
 
   /*** Footer ***/
