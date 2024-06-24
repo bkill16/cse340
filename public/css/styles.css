@@ -105,6 +105,18 @@ nav li a:hover {
   text-decoration: underline;
 }
 
+/*** Errors ***/
+.errors-title {
+  font-family: var(--heading-font);
+  color: var(--text-on-light)
+}
+
+.error-msg {
+  font-family: var(--primary-font);
+  color: var(--text-on-light);
+  font-size: 1.25em;
+}
+
 /*** Home Hero Section ***/
 .title {
   font-size: 1.5em;
