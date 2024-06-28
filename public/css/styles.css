@@ -105,6 +105,15 @@ nav li a:hover {
   text-decoration: underline;
 }
 
+footer {
+  padding: 10px;
+  text-align: left;
+}
+
+.copyright {
+  font-size: 1.1em;
+}
+
 /*** Errors ***/
 .errors-title {
   font-family: var(--heading-font);
@@ -209,7 +218,7 @@ nav li a:hover {
 }
 
 /*** Inventory Section ***/
-#inv-title {
+.inv-title {
   text-align: center;
   font-family: var(--heading-font);
   color: var(--text-on-light);
@@ -251,9 +260,34 @@ nav li a:hover {
   padding-bottom: .85em;
 }
 
-/*** Footer ***/
-.copyright {
-  font-size: 0.95em;
+/*** Inventory Details Section ***/
+.details-title {
+  font-family: var(--heading-font);
+  color: var(--text-on-light);
+}
+
+.detail-container img {
+  max-width: 100%
+}
+
+.detail-container h2 {
+  font-family: var(--heading-font);
+  font-size: 1.6em;
+  color: var(--text-on-light)
+}
+
+.detail-container .invInfo {
+  font-family: var(--primary-font);
+  font-size: 1.5em;
+  color: var(--text-on-light);
+}
+
+.vehicle-details {
+  margin: .75em;
+}
+
+.bold {
+  font-weight: bold;
 }
 
 /***** Media Queries *****/
@@ -278,6 +312,10 @@ nav li a:hover {
 
   #tools {
     font-size: 1.5em;
+  }
+
+  .copyright {
+    font-size: 1.2em;
   }
 
   /*** Navigation ***/
@@ -350,7 +388,7 @@ nav li a:hover {
   }
 
   /*** Inventory Section ***/
-  #inv-title {
+  .inv-title {
     font-size: 2.5em;
     text-align: left;
   }
@@ -366,8 +404,14 @@ nav li a:hover {
     margin: 0;
   }
 
-  /*** Footer ***/
-  .copyright {
-    font-size: 1.1em;
+  /*** Inventory Details Section ***/
+  .detail-container {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .vehicle-details {
+    margin-left: 2.5em;
   }
 }
