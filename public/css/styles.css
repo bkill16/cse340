@@ -297,8 +297,14 @@ footer {
   font-weight: bold;
 }
 
-/*** Login Form ***/
+/*** Login and register forms ***/
 .login-title {
+  font-family: var(--heading-font);
+  color: var(--text-on-light);
+  text-align: center;
+}
+
+.register-title {
   font-family: var(--heading-font);
   color: var(--text-on-light);
   text-align: center;
