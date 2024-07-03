@@ -8,37 +8,43 @@
  *************************/
 const express = require("express");
 const expressLayouts = require("express-ejs-layouts");
+const bodyParser = require("body-parser")
 const env = require("dotenv").config();
 const app = express();
-const session = require("express-session")
-const pool = require('./database/')
+const session = require("express-session");
+const pool = require("./database/");
 const static = require("./routes/static");
 const baseController = require("./controllers/baseController");
 const inventoryRoute = require("./routes/inventoryRoute");
 const errorRoute = require("./routes/errorRoute");
-const accountRoute = require("./routes/accountRoute")
+const accountRoute = require("./routes/accountRoute");
 const utilities = require("./utilities/index");
 
 /* ***********************
  * Middleware
  * ************************/
-app.use(session({
-  store: new (require('connect-pg-simple')(session))({
-    createTableIfMissing: true,
-    pool,
-  }),
-  secret: process.env.SESSION_SECRET,
-  resave: true,
-  saveUninitialized: true,
-  name: 'sessionId',
-}))
+app.use(
+  session({
+    store: new (require("connect-pg-simple")(session))({
+      createTableIfMissing: true,
+      pool,
+    }),
+    secret: process.env.SESSION_SECRET,
+    resave: true,
+    saveUninitialized: true,
+    name: "sessionId",
+  })
+);
 
 // Express Messages Middleware
-app.use(require('connect-flash')())
-app.use(function(req, res, next){
-  res.locals.messages = require('express-messages')(req, res)
-  next()
-})
+app.use(require("connect-flash")());
+app.use(function (req, res, next) {
+  res.locals.messages = require("express-messages")(req, res);
+  next();
+});
+
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 
 /* ***********************
  * View Engine and Templates
@@ -56,7 +62,7 @@ app.get("/", utilities.handleErrors(baseController.buildHome));
 
 app.use("/inv", inventoryRoute);
 app.use("/error", errorRoute);
-app.use("/account", accountRoute)
+app.use("/account", accountRoute);
 
 app.use(async (req, res, next) => {
   next({ status: 404, message: "Knock knock. Who's there? Not this webpage." });
@@ -67,15 +73,19 @@ app.use(async (req, res, next) => {
  * Place after all other middleware
  *************************/
 app.use(async (err, req, res, next) => {
-  let nav = await utilities.getNav()
-  console.error(`Error at: "${req.originalUrl}": ${err.message}`)
-  if(err.status == 404){ message = err.message} else {message = 'Oh no! There was a crash. Maybe try a different route?'}
+  let nav = await utilities.getNav();
+  console.error(`Error at: "${req.originalUrl}": ${err.message}`);
+  if (err.status == 404) {
+    message = err.message;
+  } else {
+    message = "Oh no! There was a crash. Maybe try a different route?";
+  }
   res.render("errors/error", {
-    title: err.status || 'Server Error',
+    title: err.status || "Server Error",
     message,
-    nav
-  })
-})
+    nav,
+  });
+});
 
 /* ***********************
  * Local Server Information
