@@ -59,6 +59,13 @@ nav ul,
   text-decoration: none;
 }
 
+/*** Flash Messages ***/
+.notice {
+  color: red;
+  font-family: var(--primary-font);
+  font-size: 1.1em;
+}
+
 /*** Header ***/
 #top-header {
   display: flex;
@@ -288,6 +295,66 @@ footer {
 
 .bold {
   font-weight: bold;
+}
+
+/*** Login Form ***/
+.login-title {
+  font-family: var(--heading-font);
+  color: var(--text-on-light);
+  text-align: center;
+}
+
+form {
+  font-family: var(--primary-font);
+  max-width: 400px;
+  padding: 20px;
+  background-color: var(--primary-color);
+  border: 5px solid var(--secondary-color);
+  border-radius: 10px;
+  margin: 0 auto;
+}
+
+form label,
+#register p,
+#register a,
+button {
+  color: var(--text-on-dark);
+  font-size: 1.3em;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+button {
+  display: block;
+  width: 50%;
+  padding: 7px;
+  border: none;
+  background-color: var(--text-on-dark);
+  color: var(--primary-color);
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 0 auto;
+}
+
+#register {
+  text-align: center;
 }
 
 /***** Media Queries *****/
