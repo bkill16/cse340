@@ -1,3 +1,4 @@
+const regValidate = require('../utilities/account-validation')
 const express = require("express");
 const router = new express.Router();
 const utilities = require("../utilities/index");
@@ -12,7 +13,9 @@ router.get(
 
 router.post(
   "/register",
+  regValidate.registationRules(),
+  regValidate.checkRegData,
   utilities.handleErrors(accountController.registerAccount)
-);
+)
 
 module.exports = router;
