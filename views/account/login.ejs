@@ -7,11 +7,13 @@
 <form action="submit">
     <div class="form-group">
         <label for="email">Email:</label>
-        <input type="text" id="email" name="account_email" required>
+        <input type="email" name="account_email" required placeholder="Enter your account email">
     </div>
     <div class="form-group">
         <label for="password">Password:</label>
-        <input type="text" id="password" name="account_password" required>
+        <span>Passwords must be at least 12 characters and contain at least 1 number, 1 capital letter and 1 special character</span> 
+        <input type="password" name="account_password" required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" 
+        placeholder="Enter your password">
     </div>
     <button type="submit">LOGIN</button>
     <div id="register">

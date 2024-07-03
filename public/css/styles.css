@@ -333,6 +333,10 @@ button {
   font-size: 1.3em;
 }
 
+.form-group span {
+  color: var(--text-on-dark);
+}
+
 .form-group {
   margin-bottom: 15px;
 }
