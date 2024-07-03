@@ -1,4 +1,5 @@
-const regValidate = require('../utilities/account-validation')
+const regValidate = require("../utilities/account-validation");
+const loginValidate = require("../utilities/account-validation");
 const express = require("express");
 const router = new express.Router();
 const utilities = require("../utilities/index");
@@ -16,6 +17,16 @@ router.post(
   regValidate.registationRules(),
   regValidate.checkRegData,
   utilities.handleErrors(accountController.registerAccount)
+);
+
+// Process the login attempt
+router.post(
+  "/login",
+  loginValidate.loginRules(),
+  loginValidate.checkLoginData,
+  (req, res) => {
+    res.status(200).send('login process')
+  }
 )
 
 module.exports = router;
