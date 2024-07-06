@@ -1,4 +1,5 @@
 const classValidate = require("../utilities/classification-validation")
+const invValidate = require("../utilities/inventory-validation")
 const express = require("express");
 const router = new express.Router();
 const utilities = require("../utilities/index");
@@ -16,6 +17,13 @@ router.post(
     classValidate.classificationRules(),
     classValidate.checkClassData,
     utilities.handleErrors(invController.addNewClassification)
+)
+
+router.post(
+    "/inv/add-inventory",
+    invValidate.inventoryRules(),
+    invValidate.checkInvData,
+    utilities.handleErrors(invController.addNewInventory)
 )
 
 module.exports = router;

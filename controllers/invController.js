@@ -61,9 +61,66 @@ invCont.addNewClassification = async function (req, res) {
       title: "Add Classification",
       nav,
       errors: null,
-      classification_name
+      classification_name,
     });
   }
-}
+};
+
+/*** Process new inventory ***/
+invCont.addNewInventory = async function (req, res) {
+  let nav = await utilities.getNav();
+  let classDropdown = await utilities.buildClassificationList();
+  const {
+    inv_make,
+    inv_model,
+    inv_year,
+    inv_description,
+    inv_image,
+    inv_thumbnail,
+    inv_price,
+    inv_miles,
+    inv_color,
+    classification_id,
+  } = req.body;
+
+  const invResult = await invModel.addNewInventory(
+    inv_make,
+    inv_model,
+    inv_year,
+    inv_description,
+    inv_image,
+    inv_thumbnail,
+    inv_price,
+    inv_miles,
+    inv_color,
+    classification_id
+  );
+
+  if (invResult) {
+    req.flash(
+      "notice",
+      `Success! ${inv_make} ${inv_model} has been added to the database`
+    );
+    res.redirect("/cse340-motors/inv");
+  } else {
+    req.flash("notice", "Sorry, unable to add the new inventory item.");
+    res.render("inventory/add-inventory", {
+      title: "Add Inventory",
+      nav,
+      errors: null,
+      classDropdown,
+      inv_make,
+      inv_model,
+      inv_year,
+      inv_description,
+      inv_image,
+      inv_thumbnail,
+      inv_price,
+      inv_miles,
+      inv_color,
+      classification_id,
+    });
+  }
+};
 
 module.exports = invCont;

@@ -11,3 +11,61 @@
   <%  }) %>
    </ul>
   <% } %>
+
+<form action="/cse340-motors/inv/add-inventory" method="POST">
+    <div class="form-group">
+        <label for="invMake">Inventory Make:</label>
+        <input type="text" name="inv_make" id="invMake" required placeholder="Ex. Ford"
+        value="<%= locals.inv_make %>">
+    </div>
+    <div class="form-group">
+        <label for="invModel">Inventory Model:</label>
+        <input type="text" name="inv_model" id="invModel" required placeholder="Ex. Mustang"
+        value="<%= locals.inv_model %>">
+    </div>
+    <div class="form-group">
+        <label for="invYear">Inventory Year:</label>
+        <input type="text" name="inv_year" id="invYear" required placeholder="Ex. 2013"
+        pattern="[0-9]+" title="Please enter only numeric characters with no spaces"
+        value="<%= locals.inv_year %>">
+    </div>
+    <div class="form-group">
+        <label for="invDesc">Inventory Description:</label>
+        <input type="text" name="inv_description" id="invDesc" required placeholder="Enter the inventory description"
+        value="<%= locals.inv_description %>">
+    </div>
+    <div class="form-group">
+        <label for="invImg">Inventory Image:</label>
+        <input type="text" name="inv_image" id="invImg" required placeholder="Ex. /images/vehicles/image-name.jpg"
+        pattern="/images/vehicles/[^/]+\.(jpg|jpeg|png|gif)" title="Please enter a valid image URL starting with '/images/vehicles/'"
+        value="<%= locals.inv_image %>">
+    </div>
+    <div class="form-group">
+        <label for="invThumb">Inventory Thumbnail:</label>
+        <input type="text" name="inv_thumbnail" id="invThumb" required placeholder="Ex. /images/vehicles/image-name.png"
+        pattern="/images/vehicles/[^/]+\.(jpg|jpeg|png|gif)" title="Please enter a valid image URL starting with '/images/vehicles/'"
+        value="<%= locals.inv_thumbnail %>">
+    </div>
+    <div class="form-group">
+        <label for="invPrice">Inventory Price:</label>
+        <input type="text" name="inv_price" id="invPrice" required placeholder="Ex. 13500"
+        pattern="[0-9]+" title="Please enter only numeric characters with no spaces"
+        value="<%= locals.inv_price %>">
+    </div>
+    <div class="form-group">
+        <label for="invMiles">Inventory Miles:</label>
+        <input type="text" name="inv_miles" id="invMiles" required placeholder="Ex. 125000"
+        pattern="[0-9]+" title="Please enter only numeric characters with no spaces"
+        value="<%= locals.inv_miles %>">
+    </div>
+    <div class="form-group">
+        <label for="invColor">Inventory Color:</label>
+        <input type="text" name="inv_color" id="invColor" required placeholder="Ex. Red"
+        value="<%= locals.inv_color %>">
+    </div>
+    <div class="form-group">
+        <label for="classificationList">Inventory Classification:</label>
+        <%- classDropdown %>
+    </div>
+    <button id="inv-btn" type="submit">CREATE INVENTORY</button>
+</form>

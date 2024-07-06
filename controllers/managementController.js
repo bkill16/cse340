@@ -22,12 +22,14 @@ async function buildAddClassification(req, res, next) {
 
 /*** Deliver add inventory view ***/
 async function buildAddInventory(req, res, next) {
-    let nav = await utilities.getNav();
-    res.render("inventory/add-inventory", {
-      title: "Add Inventory",
-      nav,
-      errors: null
-    });
-  }
+  let nav = await utilities.getNav();
+  let classDropdown = await utilities.buildClassificationList()  // Note the parentheses here
+  res.render("inventory/add-inventory", {
+    title: "Add Inventory",
+    nav,
+    errors: null,
+    classDropdown
+  });
+}
 
 module.exports = { buildManagementButtons, buildAddClassification, buildAddInventory }
