@@ -18,6 +18,7 @@ const baseController = require("./controllers/baseController");
 const inventoryRoute = require("./routes/inventoryRoute");
 const errorRoute = require("./routes/errorRoute");
 const accountRoute = require("./routes/accountRoute");
+const managementRoute = require("./routes/managementRoute");
 const utilities = require("./utilities/index");
 
 /* ***********************
@@ -63,6 +64,7 @@ app.get("/", utilities.handleErrors(baseController.buildHome));
 app.use("/inv", inventoryRoute);
 app.use("/error", errorRoute);
 app.use("/account", accountRoute);
+app.use("/cse340-motors", managementRoute);
 
 app.use(async (req, res, next) => {
   next({ status: 404, message: "Knock knock. Who's there? Not this webpage." });

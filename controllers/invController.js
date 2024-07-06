@@ -42,4 +42,28 @@ invCont.buildByInventoryId = async function (req, res, next) {
   }
 };
 
+/*** Process new classification ***/
+invCont.addNewClassification = async function (req, res) {
+  let nav = await utilities.getNav();
+  const { classification_name } = req.body;
+
+  const classResult = await invModel.addNewClassification(classification_name);
+
+  if (classResult) {
+    req.flash(
+      "notice",
+      `Success! The ${classification_name} classification has been added to the database.`
+    );
+    res.redirect("/cse340-motors/inv");
+  } else {
+    req.flash("notice", "Sorry, unable to add the new classification.");
+    res.render("inventory/add-classification", {
+      title: "Add Classification",
+      nav,
+      errors: null,
+      classification_name
+    });
+  }
+}
+
 module.exports = invCont;

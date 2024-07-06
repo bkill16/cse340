@@ -1,0 +1,20 @@
+<% if (title) { %>
+    <h1 class="management-title"><%= title %></h1>
+  <% } else { res.redirect('/') } %>
+
+  <%- messages() %>
+
+  <% if (errors) { %>
+      <ul class="notice">
+     <% errors.array().forEach(error => { %>
+       <li><%= error.msg %></li>
+    <%  }) %>
+     </ul>
+    <% } %>
+
+<form class="inv-management" action="/cse340-motors/inv/add-classification" method="GET">
+    <button type="submit">Add New Classification</button>
+</form>
+<form class="inv-management" action="/cse340-motors/inv/add-inventory" method="GET">
+    <button type="submit">Add New Inventory</button>
+</form>

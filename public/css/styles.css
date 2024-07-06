@@ -372,6 +372,37 @@ button {
   text-align: center;
 }
 
+/*** inventory management ***/
+.management-title {
+  font-family: var(--heading-font);
+  color: var(--text-on-light);
+  text-align: center;
+}
+
+.inv-management {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  border: none;
+  padding: 0;
+  margin: 1em;
+}
+
+.inv-management button {
+  background-color: var(--primary-color);
+  border: .5em solid var(--secondary-color);
+  color: var(--text-on-dark);
+  font-family: var(--primary-font);
+  font-size: 1.5em;
+  width: 100%;
+  padding: .75em;
+}
+
+#class-btn {
+  width: 80%;
+}
+
 /***** Media Queries *****/
 @media screen and (min-width: 768px) {
   /*** Background setup ***/
@@ -495,5 +526,11 @@ button {
 
   .vehicle-details {
     margin-left: 2.5em;
+  }
+
+  /*** inventory management ***/
+  .inv-management {
+    margin: 0 auto;
+    padding-bottom: 2em;
   }
 }

@@ -1,0 +1,24 @@
+<% if (title) { %>
+    <h1 class="login-title"><%= title %></h1>
+    <% } else { res.redirect('/') } %>
+
+<%- messages() %>
+
+<% if (errors) { %>
+    <ul class="notice">
+   <% errors.array().forEach(error => { %>
+     <li><%= error.msg %></li>
+  <%  }) %>
+   </ul>
+  <% } %>
+
+<form action="/cse340-motors/inv/add-classification" method="POST">
+    <div class="form-group">
+        <label for="className">Classification Name:</label>
+        <span>The new classification name cannot contain a space or special character of any kind.</span>
+        <input type="text" name="classification_name" id="classificationName" required pattern="[a-zA-Z0-9]+"
+        placeholder="Enter the Classification Name" 
+        value="<%= locals.classification_name %>">
+    </div>
+    <button id="class-btn" type="submit">CREATE CLASSIFICATION</button>
+</form>
