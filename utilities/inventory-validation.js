@@ -125,8 +125,6 @@ validate.checkInvData = async (req, res, next) => {
   next();
 };
 
-module.exports = validate;
-
 const decodeHtmlEntities = (text) => {
   const entities = {
     "&#x2F;": "/",
@@ -141,3 +139,5 @@ const decodeHtmlEntities = (text) => {
     (match) => entities[match]
   );
 };
+
+module.exports = validate;

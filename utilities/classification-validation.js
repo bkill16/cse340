@@ -29,20 +29,19 @@ validate.classificationRules = () => {
 
 /*** check data and return errors or continue to classification creation ***/
 validate.checkClassData = async (req, res, next) => {
-    const { classification_name } = req.body;
-    let errors = [];
-    errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      let nav = await utilities.getNav();
-      res.render("inventory/add-classification", {
-        errors,
-        title: "Add Classification",
-        nav,
-        classification_name
-      });
-      return;
-    }
-    next();
-  };
+  const { classification_name } = req.body;
+  let errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav();
+    res.render("inventory/add-classification", {
+      errors: errors.array(),
+      title: "Add Classification",
+      nav,
+      classification_name
+    });
+    return;
+  }
+  next();
+};
 
 module.exports = validate;

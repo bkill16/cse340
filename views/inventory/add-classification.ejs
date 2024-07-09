@@ -4,13 +4,13 @@
 
 <%- messages() %>
 
-<% if (errors) { %>
+<% if (locals.errors && Array.isArray(locals.errors)) { %>
     <ul class="notice">
-   <% errors.array().forEach(error => { %>
-     <li><%= error.msg %></li>
-  <%  }) %>
-   </ul>
-  <% } %>
+      <% locals.errors.forEach(error => { %>
+        <li><%= error.msg %></li>
+      <% }) %>
+    </ul>
+<% } %>
 
 <form action="/cse340-motors/inv/add-classification" method="POST">
     <div class="form-group">
