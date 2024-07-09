@@ -13,4 +13,11 @@ router.get(
   utilities.handleErrors(invController.buildByInventoryId)
 );
 
+router.get(
+  "/getInventory/:classification_id",
+  utilities.handleErrors(invController.getInventoryJSON)
+);
+
+router.get("/edit/:inv_id", utilities.handleErrors(invController.editInv));
+
 module.exports = router;

@@ -397,6 +397,7 @@ button {
   font-size: 1.5em;
   width: 100%;
   padding: .75em;
+  margin: 0 auto;
 }
 
 #class-btn {
@@ -411,6 +412,45 @@ button {
 
 #inv-btn {
   width: 75%;
+}
+
+#inv-man-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 5px;
+  margin: 0 auto;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+}
+
+#inv-man-container h2 {
+  font-family: var(--heading-font);
+  color: var(--text-on-light);
+  font-size: 1.5em;
+}
+
+#inv-man-container p {
+  font-family: var(--primary-font);
+  color: var(--text-on-light);
+  font-size: 1.3em;
+}
+
+#classificationList {
+  font-family: var(--primary-font);
+  color: var(--text-on-light);
+  font-size: 1.3em;
+}
+
+#inventoryDisplay {
+  font-family: var(--primary-font);
+  color: var(--text-on-light);
+  font-size: 1.25em;
+  line-height: 2em;
 }
 
 /***** Media Queries *****/
@@ -542,5 +582,13 @@ button {
   .inv-management {
     margin: 0 auto;
     padding-bottom: 2em;
+  }
+
+  #inv-man-container {
+    padding: 25px;
+  }
+
+  #inv-man-container h2 {
+    font-size: 1.75em;
   }
 }

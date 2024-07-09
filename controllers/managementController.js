@@ -3,10 +3,12 @@ const utilities = require("../utilities/index");
 /*** Deliver management view ***/
 async function buildManagementButtons(req, res, next) {
     let nav = await utilities.getNav();
+    const classificationSelect = await utilities.buildClassificationList()
     res.render("inventory/management", {
       title: "Inventory Management",
       nav,
-      errors: null
+      errors: null,
+      classificationSelect
     });
   }
 

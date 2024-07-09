@@ -1,15 +1,14 @@
 <% if (title) { %>
 <h1 class="login-title"><%= title %></h1>
-<% } else { res.redirect('/') } %> <%- messages() %> <% if (locals.errors &&
-Array.isArray(locals.errors)) { %>
+<% } else { res.redirect('/') } %> <%- messages() %> <% if (errors) { %>
 <ul class="notice">
-  <% locals.errors.forEach(error => { %>
+  <% errors.array().forEach(error => { %>
   <li><%= error.msg %></li>
   <% }) %>
 </ul>
 <% } %>
 
-<form action="/cse340-motors/inv/add-inventory" method="POST">
+<form action="/inv/update" method="post">
   <div class="form-group">
     <label for="invMake">Inventory Make:</label>
     <input
@@ -18,7 +17,7 @@ Array.isArray(locals.errors)) { %>
       id="invMake"
       required
       placeholder="Ex. Ford"
-      value="<%= locals.inv_make %>"
+      value="<%= inv_make %>"
     />
   </div>
   <div class="form-group">
@@ -29,7 +28,7 @@ Array.isArray(locals.errors)) { %>
       id="invModel"
       required
       placeholder="Ex. Mustang"
-      value="<%= locals.inv_model %>"
+      value="<%= inv_model %>"
     />
   </div>
   <div class="form-group">
@@ -42,7 +41,7 @@ Array.isArray(locals.errors)) { %>
       placeholder="Ex. 2013"
       pattern="\d{4}"
       title="Please enter a 4-digit year"
-      value="<%= locals.inv_year %>"
+      value="<%= inv_year %>"
     />
   </div>
   <div class="form-group">
@@ -51,8 +50,10 @@ Array.isArray(locals.errors)) { %>
       name="inv_description"
       id="invDesc"
       required
-      placeholder="Enter the inventory description">
-<%= locals.inv_description %></textarea>
+      placeholder="Enter the inventory description"
+    >
+<%= inv_description.trim() %></textarea
+    >
   </div>
   <div class="form-group">
     <label for="invImg">Inventory Image:</label>
@@ -64,7 +65,7 @@ Array.isArray(locals.errors)) { %>
       placeholder="Ex. /images/vehicles/image-name.jpg"
       pattern="/images/vehicles/[^/]+\.(jpg|jpeg|png|gif)"
       title="Please enter a valid image URL starting with '/images/vehicles/'"
-      value="<%= locals.inv_image %>"
+      value="<%= inv_image %>"
     />
   </div>
   <div class="form-group">
@@ -77,7 +78,7 @@ Array.isArray(locals.errors)) { %>
       placeholder="Ex. /images/vehicles/image-name.png"
       pattern="/images/vehicles/[^/]+\.(jpg|jpeg|png|gif)"
       title="Please enter a valid image URL starting with '/images/vehicles/'"
-      value="<%= locals.inv_thumbnail %>"
+      value="<%= inv_thumbnail %>"
     />
   </div>
   <div class="form-group">
@@ -91,8 +92,8 @@ Array.isArray(locals.errors)) { %>
       min="0"
       max="999999999"
       step="1"
-      title="Please enter a valid price"
-      value="<%= locals.inv_price %>"
+      title="Please enter a valid price (whole numbers only)"
+      value="<%= inv_price %>"
     />
   </div>
   <div class="form-group">
@@ -106,7 +107,7 @@ Array.isArray(locals.errors)) { %>
       min="0"
       step="1"
       title="Please enter only numeric characters with no spaces"
-      value="<%= locals.inv_miles %>"
+      value="<%= inv_miles %>"
     />
   </div>
   <div class="form-group">
@@ -117,12 +118,13 @@ Array.isArray(locals.errors)) { %>
       id="invColor"
       required
       placeholder="Ex. Red"
-      value="<%= locals.inv_color %>"
+      value="<%= inv_color %>"
     />
   </div>
   <div class="form-group">
     <label for="classificationList">Inventory Classification:</label>
-    <%- classDropdown %>
+    <%- classificationSelect %>
   </div>
-  <button id="inv-btn" type="submit">CREATE INVENTORY</button>
+  <input type="hidden" name="inv_id" value="<%= inv_id %>" />
+  <button id="inv-btn" type="submit">Update Vehicle</button>
 </form>
