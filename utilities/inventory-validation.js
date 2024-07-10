@@ -125,6 +125,67 @@ validate.checkInvData = async (req, res, next) => {
   next();
 };
 
+/*** check data and return errors on the edit view or continue to inventory update ***/
+validate.checkUpdateData = async (req, res, next) => {
+  console.log("checkUpdateData called");
+  
+  const {
+    inv_id,
+    inv_make,
+    inv_model,
+    inv_year,
+    inv_description,
+    inv_image,
+    inv_thumbnail,
+    inv_price,
+    inv_miles,
+    inv_color,
+    classification_id,
+  } = req.body;
+
+  console.log("Request body:", req.body);
+
+  // Decode HTML entities in inv_image and inv_thumbnail
+  req.body.inv_image = decodeHtmlEntities(inv_image);
+  req.body.inv_thumbnail = decodeHtmlEntities(inv_thumbnail);
+
+  console.log("Decoded image URLs:");
+  console.log("inv_image:", req.body.inv_image);
+  console.log("inv_thumbnail:", req.body.inv_thumbnail);
+
+  let errors = validationResult(req);
+  console.log("Validation errors:", errors.array());
+
+  if (!errors.isEmpty()) {
+    console.log("Validation failed, rendering edit-inventory view");
+    let nav = await utilities.getNav();
+    let classDropdown = await utilities.buildClassificationList();
+    let itemName = `${inv_make} ${inv_model}`;
+
+    res.render("inventory/add-inventory", {
+      errors: errors.array(),
+      title: "Edit " + itemName,
+      nav,
+      classDropdown,
+      inv_id,
+      inv_make,
+      inv_model,
+      inv_year,
+      inv_description,
+      inv_image: req.body.inv_image,
+      inv_thumbnail: req.body.inv_thumbnail,
+      inv_price,
+      inv_miles,
+      inv_color,
+      classification_id,
+    });
+    return;
+  }
+  
+  console.log("Validation passed, calling next middleware");
+  next();
+};
+
 const decodeHtmlEntities = (text) => {
   const entities = {
     "&#x2F;": "/",

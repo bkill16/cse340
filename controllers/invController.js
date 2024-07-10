@@ -99,7 +99,7 @@ invCont.addNewInventory = async function (req, res) {
   if (invResult) {
     req.flash(
       "notice",
-      `Success! ${inv_make} ${inv_model} has been added to the database`
+      `Success! ${invResult.inv_make} ${invResult.inv_model} has been added to the database`
     );
     res.redirect("/cse340-motors/inv");
   } else {
@@ -151,7 +151,7 @@ invCont.editInv = async (req, res, next) => {
       item.classification_id
     );
     const itemName = `${item.inv_make} ${item.inv_model}`;
-    res.render("./inventory/edit-inventory", {
+    res.render("inventory/edit-inventory", {
       title: "Edit " + itemName,
       nav,
       classificationSelect: classificationSelect,
@@ -170,7 +170,90 @@ invCont.editInv = async (req, res, next) => {
     });
   } else {
     req.flash("notice", "No inventory item found.");
-    res.redirect("/inv");
+    res.redirect("/cse340-motors/inv");
+  }
+};
+
+/*** update existing inventory ***/
+invCont.updateInventory = async function (req, res) {
+  console.log("updateInventory function called");
+  console.log("Request body in updateInventory:", req.body);
+
+  try {
+    let nav = await utilities.getNav();
+    console.log("Nav retrieved");
+
+    let {
+      inv_id,
+      inv_make,
+      inv_model,
+      inv_year,
+      inv_description,
+      inv_image,
+      inv_thumbnail,
+      inv_price,
+      inv_miles,
+      inv_color,
+      classification_id,
+    } = req.body;
+
+    // Ensure inv_id is a single value
+    if (Array.isArray(inv_id)) {
+      inv_id = inv_id[0];
+    }
+
+    console.log("Updating inventory with ID:", inv_id);
+
+    const updateResult = await invModel.updateInventory(
+      inv_id,
+      inv_make,
+      inv_model,
+      inv_year,
+      inv_description,
+      inv_image,
+      inv_thumbnail,
+      inv_price,
+      inv_miles,
+      inv_color,
+      classification_id
+    );
+
+    console.log("Update result:", updateResult);
+
+    if (updateResult) {
+      console.log("Update successful, redirecting");
+      req.flash(
+        "notice",
+        `Success! ${updateResult.inv_make} ${updateResult.inv_model} has been updated`
+      );
+      return res.redirect("/cse340-motors/inv");
+    } else {
+      console.log("Update unsuccessful, rendering edit form");
+      req.flash("notice", "Sorry, unable to update the inventory item.");
+      const classificationSelect = await utilities.buildClassificationList(
+        classification_id
+      );
+      const itemName = `${inv_make} ${inv_model}`;
+      res.status(400).render("inventory/edit-inventory", {
+        title: "Edit " + itemName,
+        nav,
+        classificationSelect: classificationSelect,
+        errors: null,
+        inv_id,
+        inv_make,
+        inv_model,
+        inv_year,
+        inv_description,
+        inv_image,
+        inv_thumbnail,
+        inv_price,
+        inv_miles,
+        inv_color,
+        classification_id,
+      });
+    }
+  } catch (error) {
+    console.error("Error updating inventory:", error);
   }
 };
 
