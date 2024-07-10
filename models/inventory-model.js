@@ -129,12 +129,24 @@ async function updateInventory(
       inv_miles,
       inv_color,
       classification_id,
-      inv_id
+      inv_id,
     ]);
     console.log("Query executed, rows affected:", data.rowCount);
     return data.rows[0];
   } catch (error) {
     console.error("Error in updateInventory:", error);
+    throw error;
+  }
+}
+
+/*** delete an inventory item ***/
+async function deleteInventory(inv_id) {
+  try {
+    const sql = "DELETE FROM inventory WHERE inv_id = $1";
+    const data = await pool.query(sql, [inv_id]);
+    return data;
+  } catch (error) {
+    console.error("Error in deleteInventory:", error);
     throw error;
   }
 }
@@ -147,4 +159,5 @@ module.exports = {
   checkExistingClassification,
   addNewInventory,
   updateInventory,
+  deleteInventory
 };

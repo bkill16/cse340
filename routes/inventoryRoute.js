@@ -21,6 +21,16 @@ router.get(
 
 router.get("/edit/:inv_id", utilities.handleErrors(invController.editInv));
 
+router.get(
+  "/delete/:inv_id",
+  utilities.handleErrors(invController.deleteConfirm)
+);
+
+router.post(
+  "/delete/",
+  utilities.handleErrors(invController.deleteInventory)
+);
+
 router.post(
   "/update/",
   (req, res, next) => {

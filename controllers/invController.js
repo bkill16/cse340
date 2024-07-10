@@ -99,7 +99,7 @@ invCont.addNewInventory = async function (req, res) {
   if (invResult) {
     req.flash(
       "notice",
-      `Success! ${invResult.inv_make} ${invResult.inv_model} has been added to the database`
+      `Success! ${inv_make} ${inv_model} has been added to the database`
     );
     res.redirect("/cse340-motors/inv");
   } else {
@@ -254,6 +254,79 @@ invCont.updateInventory = async function (req, res) {
     }
   } catch (error) {
     console.error("Error updating inventory:", error);
+  }
+};
+
+/*** delete confirmation view ***/
+invCont.deleteConfirm = async (req, res, next) => {
+  const inv_id = parseInt(req.params.inv_id);
+  console.log("inv_id in deleteConfirm:", inv_id);
+  let nav = await utilities.getNav();
+  const itemData = await invModel.getInventoryByInvId(inv_id);
+
+  if (itemData && itemData.length > 0) {
+    const item = itemData[0];
+
+    const itemName = `${item.inv_make} ${item.inv_model}`;
+    res.render("inventory/delete-confirm", {
+      title: "Delete " + itemName,
+      nav,
+      errors: null,
+      inv_id: item.inv_id,
+      inv_make: item.inv_make,
+      inv_model: item.inv_model,
+      inv_year: item.inv_year,
+      inv_price: item.inv_price,
+      classification_id: item.classification_id,
+    });
+  } else {
+    req.flash("notice", "No inventory item found.");
+    res.redirect("/cse340-motors/inv");
+  }
+};
+
+/*** delete existing inventory ***/
+invCont.deleteInventory = async function (req, res) {
+  try {
+    let nav = await utilities.getNav();
+
+    let { inv_id } = req.body; 
+    console.log("inv_id in deleteInventory:", inv_id);
+
+    const deleteResult = await invModel.deleteInventory(inv_id);
+
+    if (deleteResult) {
+      req.flash(
+        "notice",
+        `Success! Inventory item with ID ${inv_id} has been deleted`
+      );
+      return res.redirect("/cse340-motors/inv");
+    } else {
+      req.flash("notice", "Sorry, unable to delete the inventory item.");
+      const itemData = await invModel.getInventoryByInvId(inv_id);
+
+      if (itemData && itemData.length > 0) {
+        const item = itemData[0];
+
+        const itemName = `${item.inv_make} ${item.inv_model}`;
+        return res.render("inventory/delete-confirm", {
+          title: "Delete " + itemName,
+          nav,
+          errors: null,
+          inv_id: item.inv_id,
+          inv_make: item.inv_make,
+          inv_model: item.inv_model,
+          inv_year: item.inv_year,
+          inv_price: item.inv_price,
+          classification_id: item.classification_id,
+        });
+      } else {
+        req.flash("notice", "No inventory item found.");
+        return res.redirect("/cse340-motors/inv");
+      }
+    }
+  } catch (error) {
+    console.error("Error deleting inventory:", error);
   }
 };
 

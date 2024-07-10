@@ -1,0 +1,70 @@
+<% if (title) { %>
+<h1 class="login-title"><%= title %></h1>
+<% } else { %> <%- res.redirect('/') %> <% } %> <%- messages() %> <% if (errors)
+{ %>
+<ul class="notice">
+  <% errors.array().forEach(error => { %>
+  <li><%= error.msg %></li>
+  <% }) %>
+</ul>
+<% } %>
+
+<form action="/inv/delete" method="post">
+  <div class="form-group">
+    <label for="invMake">Inventory Make:</label>
+    <input
+      readonly
+      type="text"
+      name="inv_make"
+      id="invMake"
+      required
+      placeholder="Ex. Ford"
+      value="<%= inv_make %>"
+    />
+  </div>
+  <div class="form-group">
+    <label for="invModel">Inventory Model:</label>
+    <input
+      readonly
+      type="text"
+      name="inv_model"
+      id="invModel"
+      required
+      placeholder="Ex. Mustang"
+      value="<%= inv_model %>"
+    />
+  </div>
+  <div class="form-group">
+    <label for="invYear">Inventory Year:</label>
+    <input
+      readonly
+      type="text"
+      name="inv_year"
+      id="invYear"
+      required
+      placeholder="Ex. 2013"
+      pattern="\d{4}"
+      title="Please enter a 4-digit year"
+      value="<%= inv_year %>"
+    />
+  </div>
+  <div class="form-group">
+    <label for="invPrice">Inventory Price:</label>
+    <input
+      readonly
+      type="number"
+      name="inv_price"
+      id="invPrice"
+      required
+      placeholder="Ex. 13500"
+      min="0"
+      max="999999999"
+      step="1"
+      title="Please enter a valid price (whole numbers only)"
+      value="<%= inv_price %>"
+    />
+  </div>
+  <p id="confirm-delete">Confirm Deletion - The delete is permanent.</p>
+  <button id="inv-btn" type="submit">DELETE INVENTORY</button>
+  <input type="hidden" name="inv_id" value="<%= inv_id %>" />
+</form>

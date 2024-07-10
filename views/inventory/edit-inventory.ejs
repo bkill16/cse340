@@ -1,10 +1,7 @@
 <% if (title) { %>
-  <h1 class="login-title"><%= title %></h1>
-<% } else { %>
-  <%- res.redirect('/') %>
-<% } %>
-<%- messages() %> 
-<% if (errors) { %>
+<h1 class="login-title"><%= title %></h1>
+<% } else { %> <%- res.redirect('/') %> <% } %> <%- messages() %> <% if (errors)
+{ %>
 <ul class="notice">
   <% errors.array().forEach(error => { %>
   <li><%= error.msg %></li>
@@ -55,7 +52,9 @@
       id="invDesc"
       required
       placeholder="Enter the inventory description"
-    ><%= inv_description.trim() %></textarea>
+    >
+<%= inv_description.trim() %></textarea
+    >
   </div>
   <div class="form-group">
     <label for="invImg">Inventory Image:</label>
@@ -127,9 +126,8 @@
     <label for="classificationList">Inventory Classification:</label>
     <%- classificationSelect %>
   </div>
-  <input type="hidden" name="inv_id" value="<%= inv_id %>" />
   <button id="inv-btn" type="submit" disabled>UPDATE INVENTORY</button>
-  <input type="hidden" name="inv_id" value="<%= inv_id %>">
+  <input type="hidden" name="inv_id" value="<%= inv_id %>" />
 </form>
 
 <script src="../../js/inv-update.js"></script>
