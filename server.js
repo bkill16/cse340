@@ -70,11 +70,6 @@ app.use("/error", errorRoute);
 app.use("/account", accountRoute);
 app.use("/cse340-motors", managementRoute);
 
-app.use((req, res, next) => {
-  res.locals.accountData = req.session.accountData;
-  next();
-});
-
 app.get("/logout", utilities.handleErrors(accountController.accountLogout));
 
 app.use(async (req, res, next) => {

@@ -89,6 +89,11 @@ nav ul,
   right: 0;
 }
 
+#tools span {
+  font-family: var(--primary-font);
+  color: var(--primary-color);
+}
+
 #tools a:hover {
   text-decoration: underline;
 }
