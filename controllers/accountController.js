@@ -91,23 +91,42 @@ async function updateAccountInfo(req, res, next) {
     if (updateResult) {
       const updatedAccount = await accountModel.getAccountById(account_id);
 
-      req.session.accountData = updatedAccount[0];
+      if (updatedAccount && updatedAccount.length > 0) {
+        const accountData = updatedAccount[0];
+        delete accountData.account_password;
 
-      req.flash(
-        "notice",
-        `Success, ${account_firstname}! Your account info has been updated.`
-      );
+        const newAccessToken = jwt.sign(
+          accountData,
+          process.env.ACCESS_TOKEN_SECRET,
+          { expiresIn: 3600 }
+        );
 
-      res.render("account/account-management", {
-        title: "Manage Your Account",
-        nav,
-        errors: null,
-        accountData: req.session.accountData,
-        accountUpdate: {
-          success: true,
-          account: req.session.accountData,
-        },
-      });
+        res.cookie("jwt", newAccessToken, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === "production",
+          maxAge: 3600 * 1000,
+        });
+
+        req.session.accountData = accountData;
+
+        req.flash(
+          "notice",
+          `Success, ${account_firstname}! Your account info has been updated.`
+        );
+
+        res.render("account/account-management", {
+          title: "Manage Your Account",
+          nav,
+          errors: null,
+          accountData: accountData,
+          accountUpdate: {
+            success: true,
+            account: accountData,
+          },
+        });
+      } else {
+        throw new Error("Failed to retrieve updated account data");
+      }
     } else {
       res.render("account/account-management", {
         title: "Manage Your Account",
@@ -253,5 +272,5 @@ module.exports = {
   registerAccount,
   accountLogin,
   accountLogout,
-  updateAccountInfo
+  updateAccountInfo,
 };

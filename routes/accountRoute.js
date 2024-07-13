@@ -40,7 +40,7 @@ router.post(
 );
 
 router.post(
-  "/update/",
+  "/update/account-info",
   updateInfoValidate.updateInfoRules(),
   updateInfoValidate.checkUpdateInfoData,
   utilities.handleErrors(accountController.updateAccountInfo)
