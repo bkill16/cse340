@@ -188,24 +188,18 @@ Util.checkLogin = (req, res, next) => {
   }
 };
 
-/*** check account type ***/
 Util.checkAccountType = (req, res, next) => {
-  if (req.cookies.jwt) {
-    jwt.verify(
-      req.cookies.jwt,
-      process.env.ACCESS_TOKEN_SECRET,
-      function (err, accountData) {
-        if (err || !["Employee", "Admin"].includes(accountData.account_type)) {
-          req.flash(
-            "notice",
-            "Unauthorized access. Please log in with the appropriate credentials."
-          );
-          return res.redirect("/account/login");
-        }
-        res.locals.accountData = accountData;
-        next();
+  const token = req.cookies.jwt;
+  if (token) {
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, accountData) => {
+      if (err || !["Employee", "Admin"].includes(accountData.account_type)) {
+        req.flash("notice", "Unauthorized access. Please log in with appropriate credentials.");
+        return res.redirect("/account/login");
       }
-    );
+      res.locals.accountData = accountData;
+      res.locals.loggedin = true;
+      next();
+    });
   } else {
     req.flash("notice", "Please log in to access this page.");
     res.redirect("/account/login");

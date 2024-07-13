@@ -1,4 +1,5 @@
 const pool = require("../database/index");
+const bcrypt = require("bcryptjs");
 
 /* *****************************
  *   Register new account
@@ -41,11 +42,31 @@ async function checkExistingEmail(account_email) {
  * ********************* */
 async function checkExistingEmailUpdate(newEmail, accountId) {
   try {
-    const sql = "SELECT * FROM account WHERE account_email = $1 AND account_id != $2";
+    const sql =
+      "SELECT * FROM account WHERE account_email = $1 AND account_id != $2";
     const result = await pool.query(sql, [newEmail, accountId]);
     return result.rowCount > 0;
   } catch (error) {
     console.error("Error in checkExistingEmailUpdate:", error);
+    throw error;
+  }
+}
+
+// Check if updated password is the same as current password
+async function checkSamePassword(newPassword, account_id) {
+  try {
+    const sql = "SELECT account_password FROM account WHERE account_id = $1";
+    const result = await pool.query(sql, [account_id]);
+
+    if (result.rows.length > 0) {
+      const currentPasswordHash = result.rows[0].account_password;
+      const isSamePassword = await bcrypt.compare(newPassword, currentPasswordHash);
+      return isSamePassword;
+    }
+    
+    return false; // No account found with the given account_id
+  } catch (error) {
+    console.error("Error in checkSamePassword:", error);
     throw error;
   }
 }
@@ -79,6 +100,21 @@ async function getAccountById(account_id) {
   }
 }
 
+// update account password
+async function updateAccountPassword(account_password, account_id) {
+  try {
+    console.log("Executing updateAccountPassword query");
+    const sql =
+      "UPDATE public.account SET account_password = $1 WHERE account_id = $2 RETURNING *";
+    const data = await pool.query(sql, [account_password, account_id]);
+    console.log("query executed, rows affected:", data.rowCount);
+    return data.rows[0];
+  } catch (error) {
+    console.error("error is updateAccountPassword:", error);
+    throw error;
+  }
+}
+
 // update account information
 async function updateAccountInfo(
   account_id,
@@ -108,7 +144,9 @@ module.exports = {
   registerAccount,
   checkExistingEmail,
   checkExistingEmailUpdate,
+  checkSamePassword,
   getAccountByEmail,
   getAccountById,
-  updateAccountInfo
+  updateAccountPassword,
+  updateAccountInfo,
 };
