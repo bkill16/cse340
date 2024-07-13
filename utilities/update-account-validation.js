@@ -76,7 +76,7 @@ validate.checkUpdateInfoData = async (req, res, next) => {
 };
 
 validate.checkUpdatePasswordData = async (req, res, next) => {
-  const { account_id } = req.body;
+  const { account_id, account_firstname, account_lastname, account_email } = req.body;
   let errors = [];
   errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -86,9 +86,9 @@ validate.checkUpdatePasswordData = async (req, res, next) => {
       title: "Update Your Account Information",
       nav,
       account_id,
-      account_firstname: req.session.accountData.account_firstname,
-      account_lastname: req.session.accountData.account_lastname,
-      account_email: req.session.accountData.account_email,
+      account_firstname,
+      account_lastname,
+      account_email
     });
     return;
   }
