@@ -381,12 +381,21 @@ button {
   font-family: var(--heading-font);
   color: var(--text-on-light);
   text-align: center;
+  font-size: 1.65em;
 }
 
 .login-link {
   font-family: var(--primary-font);
   color: var(--text-on-light);
   text-align: center;
+  font-size: 1.25em;
+}
+
+.account-info p {
+  font-family: var(--primary-font);
+  color: var(--text-on-light);
+  text-align: center;
+  font-size: 1.25em;
 }
 
 /*** inventory management ***/

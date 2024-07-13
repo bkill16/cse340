@@ -30,36 +30,41 @@ validate.updateInfoRules = () => {
       .isEmail()
       .normalizeEmail()
       .withMessage("A valid email is required.")
-      // needs changed 
-      .custom(async (account_email) => {
-        const emailExists = await accountModel.checkExistingEmail(
-          account_email
+      // needs changed
+      .custom(async (account_email, { req }) => {
+        const accountId = req.body.account_id;
+        const emailExists = await accountModel.checkExistingEmailUpdate(
+          account_email,
+          accountId
         );
         if (emailExists) {
-          throw new Error("This email address is unavailable. Please use a different email address.");
+          throw new Error(
+            "This email address is unavailable. Please use a different email address."
+          );
         }
       }),
   ];
 };
 
 validate.checkUpdateInfoData = async (req, res, next) => {
-    const { account_id, account_firstname, account_lastname, account_email } = req.body;
-    let errors = [];
-    errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      let nav = await utilities.getNav();
-      res.render("account/update", {
-        errors,
-        title: "Update Your Account Information",
-        nav,
-        account_id,
-        account_firstname,
-        account_lastname,
-        account_email,
-      });
-      return;
-    }
-    next();
-  };
+  const { account_id, account_firstname, account_lastname, account_email } =
+    req.body;
+  let errors = [];
+  errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav();
+    res.render("account/update", {
+      errors,
+      title: "Update Your Account Information",
+      nav,
+      account_id,
+      account_firstname,
+      account_lastname,
+      account_email,
+    });
+    return;
+  }
+  next();
+};
 
-  module.exports = validate;
+module.exports = validate;

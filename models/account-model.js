@@ -26,27 +26,42 @@ async function registerAccount(
 /* **********************
  *   Check for existing email
  * ********************* */
-async function checkExistingEmail(account_email){
+async function checkExistingEmail(account_email) {
   try {
-    const sql = "SELECT * FROM account WHERE account_email = $1"
-    const email = await pool.query(sql, [account_email])
-    return email.rowCount
+    const sql = "SELECT * FROM account WHERE account_email = $1";
+    const email = await pool.query(sql, [account_email]);
+    return email.rowCount;
   } catch (error) {
-    return error.message
+    return error.message;
+  }
+}
+
+/* **********************
+ *   Check for existing email for updates
+ * ********************* */
+async function checkExistingEmailUpdate(newEmail, accountId) {
+  try {
+    const sql = "SELECT * FROM account WHERE account_email = $1 AND account_id != $2";
+    const result = await pool.query(sql, [newEmail, accountId]);
+    return result.rowCount > 0;
+  } catch (error) {
+    console.error("Error in checkExistingEmailUpdate:", error);
+    throw error;
   }
 }
 
 /* *****************************
-* Return account data using email address
-* ***************************** */
-async function getAccountByEmail (account_email) {
+ * Return account data using email address
+ * ***************************** */
+async function getAccountByEmail(account_email) {
   try {
     const result = await pool.query(
-      'SELECT account_id, account_firstname, account_lastname, account_email, account_type, account_password FROM account WHERE account_email = $1',
-      [account_email])
-    return result.rows[0]
+      "SELECT account_id, account_firstname, account_lastname, account_email, account_type, account_password FROM account WHERE account_email = $1",
+      [account_email]
+    );
+    return result.rows[0];
   } catch (error) {
-    return new Error("No matching email found")
+    return new Error("No matching email found");
   }
 }
 
@@ -89,4 +104,11 @@ async function updateAccountInfo(
   }
 }
 
-module.exports = { registerAccount, checkExistingEmail, getAccountByEmail, getAccountById, updateAccountInfo }
+module.exports = {
+  registerAccount,
+  checkExistingEmail,
+  checkExistingEmailUpdate,
+  getAccountByEmail,
+  getAccountById,
+  updateAccountInfo
+};

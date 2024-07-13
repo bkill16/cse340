@@ -70,12 +70,8 @@ async function updateAccountInfo(req, res, next) {
   try {
     let nav = await utilities.getNav();
 
-    let {
-      account_id,
-      account_firstname,
-      account_lastname,
-      account_email
-    } = req.body;
+    let { account_id, account_firstname, account_lastname, account_email } =
+      req.body;
 
     if (Array.isArray(account_id)) {
       account_id = account_id[0];
@@ -93,41 +89,42 @@ async function updateAccountInfo(req, res, next) {
     console.log("Update result:", updateResult);
 
     if (updateResult) {
+      const updatedAccount = await accountModel.getAccountById(account_id);
+
+      req.session.accountData = updatedAccount[0];
+
       req.flash(
         "notice",
-        `Success, ${updateResult.account_firstname}! Your account info has been updated.`
+        `Success, ${account_firstname}! Your account info has been updated.`
       );
-
-      const updatedAccount = {
-        account_firstname: updateResult.account_firstname,
-        account_lastname: updateResult.account_lastname,
-        account_email: updateResult.account_email
-      }
 
       res.render("account/account-management", {
         title: "Manage Your Account",
         nav,
         errors: null,
-        updateResult: updatedAccount
-      })
+        accountData: req.session.accountData,
+        accountUpdate: {
+          success: true,
+          account: req.session.accountData,
+        },
+      });
     } else {
-      console.log("Update unsuccessful, rendering update form");
-      req.flash("notice", "Sorry, unable to update your account information.");
-      res.status(400).render("account/update", {
-        title: "Update Your Account Information",
+      res.render("account/account-management", {
+        title: "Manage Your Account",
         nav,
         errors: null,
-        account_id,
-        account_firstname,
-        account_lastname,
-        account_email,
-        account_password
+        accountData: req.session.accountData,
+        accountUpdate: {
+          success: false,
+          message: "Sorry, unable to update your account information.",
+        },
       });
     }
   } catch (error) {
     console.error("Error updating account:", error);
+    next(error);
   }
-};
+}
 
 /* ****************************************
  *  Process Registration

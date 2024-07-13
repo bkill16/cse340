@@ -1,22 +1,38 @@
 <% if (title) { %>
-    <h1 class="login-title"><%= title %></h1>
-    <% } else { res.redirect('/') } %>
+  <h1 class="login-title"><%= title %></h1>
+<% } else { res.redirect('/') } %>
 
 <%- messages() %>
 
 <% if (errors) { %>
-    <ul class="notice">
-   <% errors.array().forEach(error => { %>
-     <li><%= error.msg %></li>
-  <%  }) %>
-   </ul>
-  <% } %>
+  <ul class="notice">
+ <% errors.array().forEach(error => { %>
+   <li><%= error.msg %></li>
+<%  }) %>
+ </ul>
+<% } %>
 
-<% if (accountData.account_type === "Client") { %>
-    <h2 class="login-welcome">Welcome, <%= accountData.account_firstname %></h2>
-    <p class="login-link"><a href="/account/update/<%= accountData.account_id %>">Update Account Information</a></p>
-<% } else { %>
-    <h2 class="login-welcome">Welcome, <%= accountData.account_firstname %></h2>
+<% if (locals.accountData) { %>
+  <h2 class="login-welcome">Welcome, <%= locals.accountData.account_firstname %></h2>
+  
+  <% if (locals.accountData.account_type === "Client") { %>
+    <p class="login-link"><a href="/account/update/<%= locals.accountData.account_id %>">Update Account Information</a></p>
+    <% if (locals.accountUpdate) { %>
+        <div class="message <%= accountUpdate.success ? 'success' : 'error' %>">
+          <%= locals.messages().notice %>
+        </div>
+      
+        <% if (accountUpdate.success && accountUpdate.account) { %>
+          <h2 class="login-welcome">Updated Account Information</h2>
+          <div class="account-info">
+            <p><strong>First Name:</strong> <%= accountUpdate.account.account_firstname %></p>
+            <p><strong>Last Name:</strong> <%= accountUpdate.account.account_lastname %></p>
+            <p><strong>Email:</strong> <%= accountUpdate.account.account_email %></p>
+          </div>
+        <% } %>
+    <% } %>
+  <% } else if (locals.accountData.account_type === "Employee" || locals.accountData.account_type === "Admin") { %>
     <h3 class="login-welcome">Inventory Management</h3>
     <p class="login-link"><a href="/cse340-motors/inv">Go to Inventory Management</a></p>
+  <% } %>
 <% } %>
