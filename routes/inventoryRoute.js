@@ -19,38 +19,25 @@ router.get(
   utilities.handleErrors(invController.getInventoryJSON)
 );
 
-router.get("/edit/:inv_id", utilities.handleErrors(invController.editInv));
+router.get(
+  "/edit/:inv_id",
+  utilities.checkAccountType,
+  utilities.handleErrors(invController.editInv)
+);
 
 router.get(
   "/delete/:inv_id",
+  utilities.checkAccountType,
   utilities.handleErrors(invController.deleteConfirm)
 );
 
-router.post(
-  "/delete/",
-  utilities.handleErrors(invController.deleteInventory)
-);
+router.post("/delete/", utilities.checkAccountType, utilities.handleErrors(invController.deleteInventory));
 
 router.post(
   "/update/",
-  (req, res, next) => {
-    console.log("Update route hit");
-    next();
-  },
-  (req, res, next) => {
-    console.log("Before inventoryRules");
-    next();
-  },
+  utilities.checkAccountType,
   invValidate.inventoryRules(),
-  (req, res, next) => {
-    console.log("After inventoryRules, before checkUpdateData");
-    next();
-  },
   invValidate.checkUpdateData,
-  (req, res, next) => {
-    console.log("After checkUpdateData, before updateInventory");
-    next();
-  },
   utilities.handleErrors(invController.updateInventory)
 );
 

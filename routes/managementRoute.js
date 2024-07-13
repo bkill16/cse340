@@ -8,21 +8,25 @@ const invController = require("../controllers/invController");
 
 router.get(
   "/inv",
+  utilities.checkAccountType,
   utilities.handleErrors(managementController.buildManagementButtons)
 );
 
 router.get(
   "/inv/add-classification",
+  utilities.checkAccountType,
   utilities.handleErrors(managementController.buildAddClassification)
 );
 
 router.get(
   "/inv/add-inventory",
+  utilities.checkAccountType,
   utilities.handleErrors(managementController.buildAddInventory)
 );
 
 router.post(
   "/inv/add-classification",
+  utilities.checkAccountType,
   classValidate.classificationRules(),
   classValidate.checkClassData,
   utilities.handleErrors(invController.addNewClassification)
@@ -30,6 +34,7 @@ router.post(
 
 router.post(
   "/inv/add-inventory",
+  utilities.checkAccountType,
   invValidate.inventoryRules(),
   invValidate.checkInvData,
   utilities.handleErrors(invController.addNewInventory)

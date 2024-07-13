@@ -40,6 +40,95 @@ async function buildAccount(req, res, next) {
   });
 }
 
+// account update view
+async function buildAccountUpdate(req, res, next) {
+  const account_id = parseInt(req.params.account_id);
+  let nav = await utilities.getNav();
+  const itemData = await accountModel.getAccountById(account_id);
+
+  if (itemData && itemData.length > 0) {
+    const item = itemData[0];
+
+    res.render("account/update", {
+      title: "Update Your Account Information",
+      nav,
+      errors: null,
+      account_id: item.account_id,
+      account_firstname: item.account_firstname,
+      account_lastname: item.account_lastname,
+      account_email: item.account_email,
+      account_password: item.account_password,
+    });
+  } else {
+    req.flash("notice", "No account found.");
+    res.redirect("/");
+  }
+}
+
+// process account info update
+async function updateAccountInfo(req, res, next) {
+  try {
+    let nav = await utilities.getNav();
+
+    let {
+      account_id,
+      account_firstname,
+      account_lastname,
+      account_email
+    } = req.body;
+
+    if (Array.isArray(account_id)) {
+      account_id = account_id[0];
+    }
+
+    console.log("Updating account with ID:", account_id);
+
+    const updateResult = await accountModel.updateAccountInfo(
+      account_id,
+      account_firstname,
+      account_lastname,
+      account_email
+    );
+
+    console.log("Update result:", updateResult);
+
+    if (updateResult) {
+      req.flash(
+        "notice",
+        `Success, ${updateResult.account_firstname}! Your account info has been updated.`
+      );
+
+      const updatedAccount = {
+        account_firstname: updateResult.account_firstname,
+        account_lastname: updateResult.account_lastname,
+        account_email: updateResult.account_email
+      }
+
+      res.render("account/account-management", {
+        title: "Manage Your Account",
+        nav,
+        errors: null,
+        updateResult: updatedAccount
+      })
+    } else {
+      console.log("Update unsuccessful, rendering update form");
+      req.flash("notice", "Sorry, unable to update your account information.");
+      res.status(400).render("account/update", {
+        title: "Update Your Account Information",
+        nav,
+        errors: null,
+        account_id,
+        account_firstname,
+        account_lastname,
+        account_email,
+        account_password
+      });
+    }
+  } catch (error) {
+    console.error("Error updating account:", error);
+  }
+};
+
 /* ****************************************
  *  Process Registration
  * *************************************** */
@@ -135,4 +224,37 @@ async function accountLogin(req, res) {
   }
 }
 
-module.exports = { buildLogin, buildRegister, buildAccount, registerAccount, accountLogin };
+// process logout
+async function accountLogout(req, res) {
+  try {
+    res.clearCookie("jwt");
+
+    if (req.session) {
+      await new Promise((resolve, reject) => {
+        req.session.destroy((err) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve();
+          }
+        });
+      });
+    }
+
+    res.redirect("/");
+  } catch (error) {
+    console.error("Logout error:", error);
+    res.redirect("/");
+  }
+}
+
+module.exports = {
+  buildLogin,
+  buildRegister,
+  buildAccount,
+  buildAccountUpdate,
+  registerAccount,
+  accountLogin,
+  accountLogout,
+  updateAccountInfo
+};

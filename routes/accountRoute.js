@@ -1,5 +1,6 @@
 const regValidate = require("../utilities/account-validation");
 const loginValidate = require("../utilities/account-validation");
+const updateInfoValidate = require("../utilities/update-account-validation");
 const express = require("express");
 const router = new express.Router();
 const utilities = require("../utilities/index");
@@ -12,7 +13,16 @@ router.get(
   utilities.handleErrors(accountController.buildRegister)
 );
 
-router.get("/account-management", utilities.checkLogin, utilities.handleErrors(accountController.buildAccount));
+router.get(
+  "/account-management",
+  utilities.checkLogin,
+  utilities.handleErrors(accountController.buildAccount)
+);
+
+router.get(
+  "/update/:account_id",
+  utilities.handleErrors(accountController.buildAccountUpdate)
+);
 
 router.post(
   "/register",
@@ -27,6 +37,13 @@ router.post(
   loginValidate.loginRules(),
   loginValidate.checkLoginData,
   utilities.handleErrors(accountController.accountLogin)
+);
+
+router.post(
+  "/update/",
+  updateInfoValidate.updateInfoRules(),
+  updateInfoValidate.checkUpdateInfoData,
+  utilities.handleErrors(accountController.updateAccountInfo)
 );
 
 module.exports = router;

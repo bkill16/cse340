@@ -12,4 +12,11 @@
    </ul>
   <% } %>
 
-<h2>You're logged in</h2>
+<% if (accountData.account_type === "Client") { %>
+    <h2 class="login-welcome">Welcome, <%= accountData.account_firstname %></h2>
+    <p class="login-link"><a href="/account/update/<%= accountData.account_id %>">Update Account Information</a></p>
+<% } else { %>
+    <h2 class="login-welcome">Welcome, <%= accountData.account_firstname %></h2>
+    <h3 class="login-welcome">Inventory Management</h3>
+    <p class="login-link"><a href="/cse340-motors/inv">Go to Inventory Management</a></p>
+<% } %>

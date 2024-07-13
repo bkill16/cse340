@@ -93,6 +93,10 @@ nav ul,
   text-decoration: underline;
 }
 
+.separator {
+  color: var(--primary-color);
+}
+
 /*** Navigation ***/
 nav ul {
   display: flex;
@@ -354,6 +358,7 @@ textarea {
   border: 1px solid #ccc;
   border-radius: 5px;
   box-sizing: border-box;
+  font-family: var(--primary-font);
 }
 
 button {
@@ -369,6 +374,18 @@ button {
 }
 
 #register {
+  text-align: center;
+}
+
+.login-welcome {
+  font-family: var(--heading-font);
+  color: var(--text-on-light);
+  text-align: center;
+}
+
+.login-link {
+  font-family: var(--primary-font);
+  color: var(--text-on-light);
   text-align: center;
 }
 
@@ -456,6 +473,21 @@ button {
 #confirm-delete {
   color: var(--text-on-dark);
   text-align: center;
+}
+
+/*** update account form ***/
+#accountUpdate {
+  margin-bottom: 35px;
+}
+
+#accountUpdate button,
+#changePassword button {
+  width: 75%;
+}
+
+.password-info {
+  display: block;
+  margin-bottom: 10px;
 }
 
 /***** Media Queries *****/
