@@ -514,6 +514,12 @@ button {
   padding: .6em;
 }
 
+#inventoryList {
+  font-family: var(--primary-font);
+  font-size: 1em;
+  padding: .6em;
+}
+
 #inv-btn {
   width: 75%;
 }

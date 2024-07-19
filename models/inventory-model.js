@@ -10,6 +10,15 @@ async function getClassifications() {
 }
 
 /* ***************************
+ *  Get all inventory names/ids
+ * ************************** */
+async function getInventoryItems() {
+  return await pool.query(
+    "SELECT inv_id, inv_make, inv_model, inv_year FROM public.inventory"
+  );
+}
+
+/* ***************************
  *  Get all inventory items and classification_name by classification_id
  * ************************** */
 async function getInventoryByClassificationId(classification_id) {
@@ -116,6 +125,34 @@ async function addNewInventory(
   }
 }
 
+/*** add new inventory upgrade ***/
+async function addNewUpgrade(
+  upgrade_name,
+  upgrade_description,
+  upgrade_price,
+  upgrade_image,
+  inv_id
+) {
+  try {
+    const sql = `INSERT INTO upgrade (upgrade_name, upgrade_description, upgrade_price, upgrade_image, 
+      inv_id)
+      VALUES ($1, $2, $3, $4, $5) 
+      RETURNING *`;
+    const result = await pool.query(sql, [
+      upgrade_name,
+      upgrade_description,
+      upgrade_price,
+      upgrade_image,
+      inv_id
+    ]);
+    console.log('Add new upgrade result:', result);
+    return result;
+  } catch (error) {
+    console.error('Error adding new upgrade:', error.message);
+    return null;
+  }
+}
+
 /*** update inventory item ***/
 async function updateInventory(
   inv_id,
@@ -169,12 +206,14 @@ async function deleteInventory(inv_id) {
 
 module.exports = {
   getClassifications,
+  getInventoryItems,
   getInventoryByClassificationId,
   getInventoryByInvId,
   getUpgradesByInvId,
   addNewClassification,
   checkExistingClassification,
   addNewInventory,
+  addNewUpgrade,
   updateInventory,
   deleteInventory
 };

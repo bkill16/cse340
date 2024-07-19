@@ -139,6 +139,23 @@ Util.buildClassificationList = async function (classification_id = null) {
   return classificationList;
 };
 
+/*** build inventory item dropdown for the add upgrade view ***/
+Util.buildInventoryList = async function (inv_id = null) {
+  let data = await invModel.getInventoryItems();
+  let inventoryList = '<select name="inv_id" id="inventoryList" required>';
+  inventoryList += "<option value=''>Choose Inventory Item</option>";
+  data.rows.forEach((row) => {
+    inventoryList += `<option value="${row.inv_id}"`; 
+    if (inv_id != null && row.inv_id == inv_id) {
+      inventoryList += " selected ";
+    }
+    inventoryList += `>${row.inv_year} ${row.inv_make} ${row.inv_model}</option>`;
+  });
+  inventoryList += "</select>";
+  console.log('Generated inventoryList HTML:', inventoryList);
+  return inventoryList;
+};
+
 /* **************************************
  * Build the upgrades detail view HTML
  * ************************************ */

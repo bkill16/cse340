@@ -1,0 +1,70 @@
+<% if (title) { %>
+    <h1 class="login-title"><%= title %></h1>
+  <% } else { res.redirect('/') } %>
+  
+  <%- messages() %>
+  
+  <% if (locals.errors && Array.isArray(locals.errors)) { %>
+    <ul class="notice">
+      <% locals.errors.forEach(error => { %>
+        <li><%= error.msg %></li>
+      <% }) %>
+    </ul>
+  <% } %>
+  
+  <form action="/cse340-motors/inv/add-upgrade" method="POST">
+    <div class="form-group">
+        <label for="upgradeName">Upgrade Name:</label>
+        <input
+            type="text"
+            id="upgradeName"
+            name="upgrade_name"
+            required
+            placeholder="Ex. Flux Capacitor"
+            value="<%= locals.upgrade_name %>"
+        />
+    </div>
+    <div class="form-group">
+        <label for="upgradeDesc">Upgrade Description:</label>
+        <textarea
+            id="upgradeDesc"
+            name="upgrade_description"
+            required
+            placeholder="Enter the update description"><%= locals.upgrade_description %></textarea>
+    </div>
+    <div class="form-group">
+        <label for="upgradePrice">Upgrade Price:</label>
+        <input
+            type="number"
+            id="upgradePrice"
+            name="upgrade_price"
+            required
+            placeholder="Ex. 13500"
+            min="0"
+            max="999999999"
+            step="1"
+            title="Please enter a valid price"
+            value="<%= locals.upgrade_price %>"
+        />
+    </div>
+    <div class="form-group">
+        <label for="upgradeImg">Upgrade Image:</label>
+        <input
+            type="text"
+            id="upgradeImg"
+            name="upgrade_image"
+            required
+            placeholder="Ex. /images/upgrades/image-name.jpg"
+            pattern="/images/upgrades/[^/]+\.(jpg|jpeg|png|gif)"
+            title="Please enter a valid image URL starting with '/images/upgrades/'"
+            value="<%= locals.upgrade_image %>"
+        />
+    </div>
+    <div class="form-group">
+        <label for="inventoryList">Upgrade Vehicle:</label>
+        <%- invDropdown %>
+    </div>
+    <button id="upgrade-btn" type="submit">CREATE UPGRADE</button>
+</form>
+
+  

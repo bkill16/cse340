@@ -173,6 +173,50 @@ invCont.addNewInventory = async function (req, res) {
   }
 };
 
+/*** Process new inventory upgrades ***/
+invCont.addNewUpgrade = async function (req, res) {
+  let nav = await utilities.getNav();
+  let invDropdown = await utilities.buildInventoryList();
+  const {
+    upgrade_name,
+    upgrade_description,
+    upgrade_price,
+    upgrade_image,
+    inv_id,
+  } = req.body;
+
+  console.log('Form data:', req.body);
+
+  const upgradeResult = await invModel.addNewUpgrade(
+    upgrade_name,
+    upgrade_description,
+    upgrade_price,
+    upgrade_image,
+    inv_id,
+  );
+
+  if (upgradeResult) {
+    req.flash(
+      "notice",
+      `Success! ${upgrade_name} has been added to the database`
+    );
+    res.redirect("/cse340-motors/inv");
+  } else {
+    req.flash("notice", "Sorry, unable to add the new upgrade.");
+    res.render("inventory/add-upgrade", {
+      title: "Add Upgrade",
+      nav,
+      errors: null,
+      invDropdown,
+      upgrade_name,
+      upgrade_description,
+      upgrade_price,
+      upgrade_image,
+      inv_id
+    });
+  }
+};
+
 /* ***************************
  *  Return Inventory by Classification As JSON
  * ************************** */
