@@ -311,6 +311,79 @@ footer {
   font-weight: bold;
 }
 
+#upgrade-link-button {
+  background-color: var(--secondary-color);
+  padding: 10px;
+  width: 70%;
+}
+
+#upgrade-link-button a {
+  text-decoration: none;
+  color: var(--text-on-light);
+  font-weight: bold;
+  font-size: 1.35em;
+}
+
+#upgrade-link-button a:hover {
+  text-decoration: underline;
+}
+
+.upgrade-detail-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin: 20px;
+}
+
+.upgrade-detail-card {
+  border: 1px solid #e4d9d9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  width: 300px;
+  text-align: center;
+  padding: 20px;
+  margin: 10px;
+}
+
+.upgrade-image-holder {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.upgrade-image-holder img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.upgrade-detail-card h3 {
+  font-family: var(--heading-font);
+  color: var(--text-on-light);
+  margin: 15px 0;
+  font-size: 1.5em;
+}
+
+.upgradeInfo {
+  font-family: var(--primary-font);
+  color: var(--text-on-light);
+  font-size: 1.3em;
+  margin: 10px 0;
+}
+
+.upgradeInfo .bold {
+  font-weight: bold;
+}
+
+.noUpgrades {
+  font-family: var(--primary-font);
+  color: var(--text-on-light);
+  text-align: center;
+  font-size: 1.25em;
+}
+
 /*** Login and register forms ***/
 .login-title {
   font-family: var(--heading-font);

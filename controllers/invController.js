@@ -42,6 +42,56 @@ invCont.buildByInventoryId = async function (req, res, next) {
   }
 };
 
+/* ***************************
+ *  Build upgrade detail view
+ * ************************** */
+invCont.buildUpgradeDetail = async function (req, res, next) {
+  const inv_id = parseInt(req.params.invId, 10);
+  console.log(`Fetching upgrades for vehicle ID: ${inv_id}`);
+
+  if (isNaN(inv_id)) {
+    console.error("Invalid vehicle ID provided");
+    return res.status(400).send("Invalid vehicle ID");
+  }
+
+  try {
+    const data = await invModel.getUpgradesByInvId(inv_id);
+    const vehicleData = await invModel.getInventoryByInvId(inv_id);
+    console.log(`Upgrades data fetched for vehicle ID: ${inv_id}`, data);
+
+    if (data && data.length > 0) {
+      const grid = utilities.buildUpgradeGrid(data);
+      let nav = await utilities.getNav();
+      const vehicleYear = vehicleData[0].inv_year;
+      const vehicleMake = vehicleData[0].inv_make;
+      const vehicleModel = vehicleData[0].inv_model;
+
+      res.render("./inventory/upgrade-detail", {
+        title: `${vehicleYear} ${vehicleMake} ${vehicleModel} Upgrades`,
+        nav,
+        grid,
+      });
+    } else {
+      console.error(`No upgrades found for vehicle ID: ${inv_id}`);
+      const grid = utilities.buildUpgradeGrid(data);
+      const vehicleData = await invModel.getInventoryByInvId(inv_id);
+      let nav = await utilities.getNav();
+      const vehicleYear = vehicleData[0].inv_year;
+      const vehicleMake = vehicleData[0].inv_make;
+      const vehicleModel = vehicleData[0].inv_model;
+      res.render("./inventory/upgrade-detail", {
+        title: `${vehicleYear} ${vehicleMake} ${vehicleModel} Upgrades`,
+        nav,
+        grid,
+      })
+    }
+  } catch (error) {
+    console.error("Error building upgrade detail view: ", error);
+    res.status(500).send("Server error");
+  }
+};
+
+
 /*** Process new classification ***/
 invCont.addNewClassification = async function (req, res) {
   let nav = await utilities.getNav();

@@ -43,6 +43,22 @@ async function getInventoryByInvId(inv_id) {
   }
 }
 
+/* ***************************
+ *  Get all upgrade data by inventory_id
+ * ************************** */
+async function getUpgradesByInvId(inv_id) {
+  try {
+    const data = await pool.query(
+      `SELECT * FROM public.upgrade WHERE inv_id = $1`,
+      [inv_id]
+    );
+    return data.rows;
+  } catch (error) {
+    console.error("getUpgradesByInvId error: ", error);
+    throw new Error("Database query error");
+  }
+}
+
 /*** add new classification ***/
 async function addNewClassification(classification_name) {
   try {
@@ -155,6 +171,7 @@ module.exports = {
   getClassifications,
   getInventoryByClassificationId,
   getInventoryByInvId,
+  getUpgradesByInvId,
   addNewClassification,
   checkExistingClassification,
   addNewInventory,

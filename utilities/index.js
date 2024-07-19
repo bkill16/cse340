@@ -113,6 +113,7 @@ Util.buildDetailGrid = function (vehicle) {
       '<p class="invInfo"><span class="bold">Miles:</span> ' +
       new Intl.NumberFormat("en-US").format(vehicle.inv_miles) +
       "</p>";
+    grid += `<button id="upgrade-link-button"><a href="/inv/upgrade-detail/${vehicle.inv_id}">View Upgrades</a></button>`;
     grid += "</div>";
     grid += "</div>";
   }
@@ -136,6 +137,34 @@ Util.buildClassificationList = async function (classification_id = null) {
   });
   classificationList += "</select>";
   return classificationList;
+};
+
+/* **************************************
+ * Build the upgrades detail view HTML
+ * ************************************ */
+Util.buildUpgradeGrid = function (upgrades) {
+  let grid = "";
+  if (upgrades && upgrades.length > 0) {
+    grid += '<div class="upgrade-detail-container">';
+    upgrades.forEach((upgrade) => {
+      grid += '<div class="upgrade-detail-card">';
+      grid += '<div class="upgrade-image-holder">'
+      grid +=
+        `<img src="${upgrade.upgrade_image}" alt="Image of ${upgrade.upgrade_name}">`;
+      grid += '</div>'
+      grid +=
+        `<h3>${upgrade.upgrade_name}</h3>`;
+      grid +=
+        `<p class="upgradeInfo"><span class="bold">Description:</span> ${upgrade.upgrade_description}</p>`;
+      grid +=
+        `<p class="upgradeInfo"><span class="bold">Price:</span> $${new Intl.NumberFormat("en-US").format(upgrade.upgrade_price)}</p>`;
+      grid += "</div>";
+    });
+    grid += "</div>";
+  } else {
+    grid += '<p class="noUpgrades">There are no upgrades available for this vehicle at this time. Check again soon!</p>';
+  }
+  return grid;
 };
 
 /* ****************************************

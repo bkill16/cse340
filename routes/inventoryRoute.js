@@ -14,6 +14,8 @@ router.get(
   utilities.handleErrors(invController.buildByInventoryId)
 );
 
+router.get("/upgrade-detail/:invId", utilities.handleErrors(invController.buildUpgradeDetail));
+
 router.get(
   "/getInventory/:classification_id",
   utilities.handleErrors(invController.getInventoryJSON)
