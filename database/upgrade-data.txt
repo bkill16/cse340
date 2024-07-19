@@ -1,0 +1,134 @@
+INSERT INTO public.upgrade (
+    upgrade_name,
+    upgrade_description,
+    upgrade_price,
+    upgrade_image,
+    inv_id
+)
+VALUES
+    (
+        'Grappling Hook Launcher',
+        'Deploy a high-tensile grappling hook to scale buildings or make sharp turns quickly. Ideal for urban crime-fighting or navigating tricky terrain.',
+        5000,
+        '/images/upgrades/grappling-hook.jpg',
+        2
+    ), 
+    (
+        'Stealth Mode',
+        'Activate advanced cloaking technology to render the Batmobile invisible to the naked eye and radar. Perfect for covert operations.',
+        10000,
+        '/images/upgrades/stealth-mode.jpg',
+        2
+    ), 
+    (
+        'High-Resolution Camera System',
+        'State-of-the-art high-resolution cameras with night vision and 360-degree coverage for comprehensive surveillance capabilities.',
+        3500,
+        '/images/upgrades/camera-system.jpg',
+        3
+    ), 
+    (
+        'Encrypted Communication Suite',
+        'Secure communication systems including encrypted radios and a satellite phone to ensure confidential information remains private.',
+        2800,
+        '/images/upgrades/communication-suite.jpg',
+        3
+    ), 
+    (
+        'Emergency Parachute',
+        'Integrated emergency parachute for the entire vehicle, providing an added layer of safety during flight.',
+        12000,
+        '/images/upgrades/emergency-parachute.jpg',
+        7
+    ), 
+    (
+        'Engine Rebuild Kit',
+        'Complete engine rebuild kit with new pistons, gaskets, and timing components to restore power and efficiency.',
+        1200,
+        '/images/upgrades/rebuild-kit.jpg',
+        11
+    ), 
+    (
+        'Tool Box',
+        'Comprehensive tool box with essential tools for maintenance and repairs, ensuring you are always prepared for any mechanical issue.',
+        300,
+        '/images/upgrades/tool-box.jpg',
+        11
+    ), 
+    (
+        'Modern Ignition System',
+        'Upgrade the original ignition system to a modern, more reliable electronic ignition, ensuring easier starts and smoother running.',
+        1200,
+        '/images/upgrades/ignition-system.jpg',
+        12
+    ), 
+    (
+        'Comfort Seating',
+        'Replace the original seats with more comfortable, period-appropriate cushioned seating, enhancing driving comfort while maintaining historical accuracy.',
+        1000,
+        '/images/upgrades/comfort-seating.jpg',
+        12
+    ), 
+    (
+        'Flux Capacitor',
+        'The essential upgrade for time travel enthusiasts. Allows your vehicle to travel through time when reaching 88 mph. (Note: Time travel results may vary).',
+        12000,
+        '/images/upgrades/flux-cap-up.jpg',
+        16
+    ), 
+    (
+        'Flame Decals',
+        'High-quality flame decals to give your car a hot rod look. Durable and weather-resistant for a long-lasting, stylish appearance.',
+        200,
+        '/images/upgrades/flame-decals-up.jpg',
+        16
+    ), 
+    (
+        'Bumper Sticker',
+        'Personalized bumper sticker with your choice of slogan or design. Adds a touch of individuality to your vehicle.',
+        10,
+        '/images/upgrades/bump-stick-up.jpg',
+        16
+    ), 
+    (
+        'Hub Caps',
+        'Stylish hub caps to enhance the appearance of your wheels. Available in various designs to match your car''s aesthetic.',
+        100,
+        '/images/upgrades/hub-cap-up.jpg',
+        16
+    ), 
+    (
+        'Racing Stripes',
+        'Add a sporty look to your car with custom racing stripes. Available in a variety of colors to match your style.',
+        300,
+        '/images/upgrades/racing-stripes.jpg',
+        1
+    ), 
+    (
+        'Racing Seats and Harness',
+        'Replace the stock seats with lightweight racing seats and a 5-point harness for better support during high-speed driving and track days. Enhances safety and driver control.',
+        8500,
+        '/images/upgrades/racing-harness.jpg',
+        6
+    ), 
+    (
+        'Offroad Suspension',
+        'Upgrade your vehicle with an off-road suspension kit for improved ground clearance and better performance on rough terrain.',
+        1800,
+        '/images/upgrades/offroad-susp.jpg',
+        5
+    ), 
+    (
+        'LED Light Bar',
+        'Improve visibility during night-time off-roading with a high-intensity LED light bar. Ensures you can see and be seen in any conditions.',
+        750,
+        '/images/upgrades/light-bar.jpg',
+        5
+    ), 
+    (
+        'Bulletproof Windows and Body',
+        'Upgrade to bulletproof glass and reinforced body panels for enhanced protection. Provides safety and peace of mind in any situation.',
+        20000,
+        '/images/upgrades/bulletproof.jpg',
+        9
+    );
